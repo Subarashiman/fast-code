@@ -3,8 +3,8 @@ pipeline {
     environment {
         GITNAME = 'Subarashiman'
         GITMAIL = 'tim02366@naver.com'
-        GITWEBADD = 'https://github.com/Subarashiman/fast-code.git'
-        GITSSHADD = 'git@github.com:Subarashiman/fast-code.git'
+        GITWEBADD = 'https://github.com/Subarashiman/deployment.git'
+        GITSSHADD = 'git@github.com:Subarashiman/deployment.git'
         GITCREDENTIAL = 'git_cre'
         DOCKERHUB = 'subarashiman/fast'
         DOCKERHUBCREDENTIAL = 'docker_cre'
@@ -49,16 +49,30 @@ pipeline {
             }
             post {
                 failure {
-                    sh "echo failed"
+                    sh "docker image rm -f  ${DOCKERHUB}:${currentBuild.number}"
+                    sh "docker image rm -f  ${DOCKERHUB}:latest"
+                    sh "echo push failed"
                 }
                 success {
-                    sh "echo success"
+                    sh "docker image rm -f  ${DOCKERHUB}:${currentBuild.number}"
+                    sh "docker image rm -f  ${DOCKERHUB}:latest"
+                    sh "echo push success"
                 }
             }
         }
-        stage('start3') {
+        stage('EKS manifest file update') {
             steps {
-                sh "echo hello jenkins !!!"
+                git credentialsId: GITCREDENTIAL, url: GITSSHADD, branch: 'main'
+                sh "git config --global user.email ${GITEMAIL}"
+                sh "git config --global user.email ${GITNAME}"
+                sh "sed -i 's@${DOCKERHUB}:.*@${DOCKERHUB}:${currentBuild.number}@g' fast.yaml"
+
+                sh "git add ."
+                sh "git branch -M main"
+                sh "git commit -m 'fixed tag ${currentBuild.number}'"
+                sh "git remote remove origin"
+                sh "git remote add origin ${GITSSHADD}"
+                sh "git push origin main"
             }
             post {
                 failure {
