@@ -63,7 +63,7 @@ pipeline {
         stage('EKS manifest file update') {
             steps {
                 git credentialsId: GITCREDENTIAL, url: GITSSHADD, branch: 'main'
-                sh "git config --global user.email ${GITEMAIL}"
+                sh "git config --global user.email ${GITMAIL}"
                 sh "git config --global user.email ${GITNAME}"
                 sh "sed -i 's@${DOCKERHUB}:.*@${DOCKERHUB}:${currentBuild.number}@g' fast.yaml"
 
