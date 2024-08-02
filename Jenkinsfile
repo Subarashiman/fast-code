@@ -64,8 +64,8 @@ pipeline {
             steps {
                 git credentialsId: GITCREDENTIAL, url: GITSSHADD, branch: 'main'
                 sh "git config --global user.email ${GITMAIL}"
-                sh "git config --global user.email ${GITNAME}"
-                sh "sed -i 's@${DOCKERHUB}:.*@${DOCKERHUB}:${currentBuild.number}@g' fast.yaml"
+                sh "git config --global user.name ${GITNAME}"
+                sh "sed -i 's@${DOCKERHUB}:.*@${DOCKERHUB}:${currentBuild.number}@g' fast.yml"
 
                 sh "git add ."
                 sh "git branch -M main"
@@ -74,6 +74,7 @@ pipeline {
                 sh "git remote add origin ${GITSSHADD}"
                 sh "git push origin main"
             }
+
             post {
                 failure {
                     sh "echo failed"
