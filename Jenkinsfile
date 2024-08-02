@@ -25,16 +25,18 @@ pipeline {
                 }
             }
         }
-        stage('start1') {
+        stage('docker image build') {
             steps {
-                sh "echo hello jenkins !!!"
+                sh "docker build -t ${DOCKERHUB}:${currentBuild.number} ."   // 현재 빌드 번호를 도커 이미지 태그로 갖는다.
+                sh "docker build -t ${DOCKERHUB}:latest ."                   // currentBuild.number : 젠킨스가 제공하는 빌드넘버 변수
+
             }
             post {
                 failure {
-                    sh "echo failed"
+                    sh "echo image build failed"
                 }
                 success {
-                    sh "echo success"
+                    sh "echo image build success"
                 }
             }
         }
