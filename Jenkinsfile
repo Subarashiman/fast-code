@@ -6,7 +6,7 @@ pipeline {
         GITWEBADD = 'https://github.com/Subarashiman/fast-code.git'
         GITSSHADD = 'git@github.com:Subarashiman/deployment.git'
         GITCREDENTIAL = 'git_cre'
-        DOCKERHUB = 'subarashiman/fast'
+        DOCKERHUB = 'subarashiman/jenkins'
         DOCKERHUBCREDENTIAL = 'docker_cre'
     }
     stages {
