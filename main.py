@@ -9,3 +9,6 @@ async def health_check():
 @app.get("/")
 async def health_check1():
     return PlainTextResponse("CI/CD가 성공했습니다",status_code=200)
+@app.get("/second")
+async def health_check1():
+    return PlainTextResponse("2번째 CI/CD가 성공했습니다",status_code=200)
