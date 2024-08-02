@@ -40,9 +40,12 @@ pipeline {
                 }
             }
         }
-        stage('start2') {
+        stage('docker image push') {
             steps {
-                sh "echo hello jenkins !!!"
+                 withDockerRegistry(credentialsId: DOCKERHUBCREDENTIAL, url: '') {
+                    sh "docker push ${DOCKERHUB}:${currentBuild.number}"
+                    sh "docker push ${DOCKERHUB}:latest"
+
             }
             post {
                 failure {
