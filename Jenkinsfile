@@ -31,7 +31,7 @@ pipeline {
             }
             post {
                 failure {
-                    sh echo "failed"
+                    sh "echo failed"
                 }
                 success {
                     sh "echo success"
@@ -44,7 +44,7 @@ pipeline {
             }
             post {
                 failure {
-                    sh echo "failed"
+                    sh "echo failed"
                 }
                 success {
                     sh "echo success"
@@ -57,7 +57,7 @@ pipeline {
             }
             post {
                 failure {
-                    sh echo "failed"
+                    sh "echo failed"
                 }
                 success {
                     sh "echo success"
