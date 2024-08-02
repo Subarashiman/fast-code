@@ -8,8 +8,8 @@ spec:
     app: fast
   ports:
   - nodePort: 31000
-    port: 8000
-    targetPort: 8000
+    port: 80
+    targetPort: 80
 ---
 apiVersion: apps/v1
 kind: Deployment
