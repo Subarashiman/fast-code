@@ -3,7 +3,7 @@ pipeline {
     environment {
         GITNAME = 'Subarashiman'
         GITMAIL = 'tim02366@naver.com'
-        GITWEBADD = 'https://github.com/Subarashiman/deployment.git'
+        GITWEBADD = 'https://github.com/Subarashiman/fast-code.git'
         GITSSHADD = 'git@github.com:Subarashiman/deployment.git'
         GITCREDENTIAL = 'git_cre'
         DOCKERHUB = 'subarashiman/fast'
